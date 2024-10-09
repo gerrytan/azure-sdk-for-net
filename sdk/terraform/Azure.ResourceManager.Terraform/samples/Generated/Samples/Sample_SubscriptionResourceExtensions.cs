@@ -37,8 +37,8 @@ namespace Azure.ResourceManager.Terraform.Samples
 
             // invoke the operation
             BaseExportModel exportParameter = new ExportResourceGroup("rg1");
-            ArmOperation<OperationStatus> lro = await subscriptionResource.ExportTerraformAzureTerraformClientAsync(WaitUntil.Completed, exportParameter);
-            OperationStatus result = lro.Value;
+            ArmOperation<ExportResult> lro = await subscriptionResource.ExportTerraformAzureTerraformClientAsync(WaitUntil.Completed, exportParameter);
+            ExportResult result = lro.Value;
 
             Console.WriteLine($"Succeeded: {result}");
         }

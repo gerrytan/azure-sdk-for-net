@@ -36,8 +36,8 @@ namespace Azure.ResourceManager.Terraform.Tests.Tests
         public async Task ExportTerraform()
         {
             string rgName = _resourceGroup.Data.Name;
-            ArmOperation<OperationStatus> operationStatus = await DefaultSubscription.ExportTerraformAzureTerraformClientAsync(WaitUntil.Completed, new ExportResourceGroup(rgName));
-            string hcl = operationStatus.Value.Properties.Configuration;
+            ArmOperation<ExportResult> exportResult = await DefaultSubscription.ExportTerraformAzureTerraformClientAsync(WaitUntil.Completed, new ExportResourceGroup(rgName));
+            string hcl = exportResult.Value.Configuration;
 
             Assert.That(hcl, Does.Contain("azurerm_resource_group"));
             Assert.That(hcl, Does.Contain(rgName));

@@ -13,18 +13,18 @@ using Azure.ResourceManager.Terraform.Models;
 
 namespace Azure.ResourceManager.Terraform
 {
-    internal class OperationStatusOperationSource : IOperationSource<OperationStatus>
+    internal class ExportResultOperationSource : IOperationSource<ExportResult>
     {
-        OperationStatus IOperationSource<OperationStatus>.CreateResult(Response response, CancellationToken cancellationToken)
+        ExportResult IOperationSource<ExportResult>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            return OperationStatus.DeserializeOperationStatus(document.RootElement);
+            return ExportResult.DeserializeExportResult(document.RootElement);
         }
 
-        async ValueTask<OperationStatus> IOperationSource<OperationStatus>.CreateResultAsync(Response response, CancellationToken cancellationToken)
+        async ValueTask<ExportResult> IOperationSource<ExportResult>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            return OperationStatus.DeserializeOperationStatus(document.RootElement);
+            return ExportResult.DeserializeExportResult(document.RootElement);
         }
     }
 }
